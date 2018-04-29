@@ -44,9 +44,12 @@ class Get_shop_id_name_comment:
 		}
 
 		responses = requests.get(url,params=params)
+		print(responses.headers)
 
 		# json形式の店舗データ集まり
 		shop_datas = responses.json()
+
+
 
 		return shop_datas
 
@@ -159,7 +162,7 @@ class Get_shop_id_name_comment:
 		# レストランのデータの件数（total_hit_count）が一回に取得できるレストランデータの最大数（100）を超えた場合と1000件以上データがある場合
 		# 取得するページ
 		page = 2
-		while(int(shop_datas['total_hit_count']) // 100 >= int(shop_datas['page_offset'])):
+		while(int(shop_datas['total_hit_count']) // 100 >= int(shop_datas['page_offset']) and page <=10):
 			# ２ページ目のデータを拾ってくる
 			shop_datas = self.return_shop_datas(page)
 
@@ -177,7 +180,7 @@ class Get_shop_id_name_comment:
 
 
 
-areacodes = ['AREAS2145','AREAS2198','AREAS2199','AREAS2187','AREAS2205','AREAS2201','AREAS2202','AREAS2203','AREAS2204','AREAS2142','AREAS2200','AREAS2184','AREAS2185','AREAS2189','AREAS2190','AREAS2188','AREAS2169','AREAS2170','AREAS2176','AREAS2177','AREAS2257','AREAS2171','AREAS2113','AREAS2114']
+areacodes = ['AREAS3144','AREAS3148','AREAS3150','AREAS3146','AREAS3208','AREAS3210','AREAS3206','AREAS3204','AREAS3202','AREAS3222','AREAS3212','AREAS3224','AREAS3326','AREAS3242','AREAS3246','AREAS3244','AREAS3248','AREAS3264','AREAS3262','AREAS3270','AREAS3266','AREAS3268','AREAS3282','AREAS3288','AREAS3284','AREAS3286','AREAS3300','AREAS3302','AREAS3324','AREAS3316','AREAS3322','AREAS3318','AREAS3328','AREAS3320','AREAS3304','AREAS3310','AREAS3314']
 
 
 for i in areacodes:
@@ -209,5 +212,3 @@ for i in areacodes:
 
 # serch_areacode_s('PREF13')
 
-
-'',
