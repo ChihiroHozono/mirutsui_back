@@ -22,12 +22,13 @@ class Tweets_to_database:
             response = self.return_response(self.max_id)
             self.save_tweet(response)
 
+
     # get送信のレスポンスを返す
     # max_idを指定してツイートを取得できるようにする
     def return_response(self,max_id=None):
         twitter = OAuth1Session(keys.CK,keys.CS,keys.AT,keys.AS)
         url = "https://api.twitter.com/1.1/search/tweets.json"
-        keyword = "geocode:35.633998,139.715828,1.5km"
+        keyword = "geocode:35.645736,139.747575,1.5km"
         params = {
             'q' : keyword,
             'count' :100,
@@ -35,6 +36,7 @@ class Tweets_to_database:
         }
         response = twitter.get(url, params = params)
         return response
+
 
         # データベースに接続し保存
     def save_database(self,SQL):
@@ -53,7 +55,7 @@ class Tweets_to_database:
 
 
     # httpレスポンスからSQL文を作成し返す
-    def save_tweet(self,response,station='目黒'):
+    def save_tweet(self,response,station='田町'):
         # HTTPレスポンスを引数にデータベースに保存する関数
         if response.status_code == 200:
             # 複数のツイートのデータが入ってる

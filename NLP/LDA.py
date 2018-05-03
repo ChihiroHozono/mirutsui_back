@@ -6,7 +6,7 @@ from janome.tokenizer import Tokenizer
 t = Tokenizer()
 
 import pickle
-from gensim.models import word2vec
+import gensim
 import logging
 from pprint import pprint
 
@@ -62,29 +62,14 @@ def make_comment_list():
 	cur.close()
 	conn.close()
 
-# 分かち書きされたリストを返す
-def return_list():
-	# バイナリデータを開く
-	with open('/Users/chihiro/Python/mirutsui_back/NLP/docs.binaryfile','rb')as f:
-		docs = pickle.load(f)
-
-	return docs
-
-# modelを作る
-def make_doc2vec():
-	sentences = return_list()
-	model = word2vec.Word2Vec(sentences, size=200, min_count=10, window=15,iter=20)
-	model.save("/Users/chihiro/Python/mirutsui_back/NLP/comment.model")
-
-# モデルの読み込み
-def similar_word(word):
-	model = word2vec.Word2Vec.load("/Users/chihiro/Python/mirutsui_back/NLP/comment.model")
-	result = model.most_similar(positive=[word])
-	pprint(result)
 
 
 
-similar_word('女')
+
+def make_corpora(docs):
+	dictionary = gensim.corpora.Dictionary(docs)
+	dictionary.save_as_text('/Users/chihiro/Python/mirutsui_back/NLP/text.dict')
+
 
 
 

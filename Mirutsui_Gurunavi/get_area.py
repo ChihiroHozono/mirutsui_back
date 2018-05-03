@@ -36,6 +36,6 @@ def serch_areacode_s(pref_code):
 
 
 # serch_pref_code()
-serch_areacode_s("PREF27")
+serch_areacode_s("PREF38")
 
 
