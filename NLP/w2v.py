@@ -88,11 +88,20 @@ def make_doc2vec():
 
 
 # 類義語判定
-def similar_word(word):
+def similar_word():
 	model = word2vec.Word2Vec.load("/Users/chihiro/Python/mirutsui_back/NLP/ver19_comment.model")
-	result = model.most_similar(positive=[word])
-	print(word + 'に類似した単語')
-	pprint(result)
+	while(True):
+		words = input("単語を入力してください")
+		tokens = t.tokenize(words)
+		for token in tokens:
+			base_form = token.base_form
+			try:
+				result = model.most_similar(positive=[base_form])
+				print(base_form + 'に類似した単語')
+				pprint(result)
+			except:
+				print(base_form +"はデータにありません。")
+				pass
 
 
 word_list=['魚','マグロ','うに','美味い','ラーメン','鉛筆','雨','1','金','りんご']
@@ -112,11 +121,14 @@ def return_similar_word(word_list):
 				pass
 
 
-
+model = word2vec.Word2Vec.load("/Users/chihiro/Python/mirutsui_back/NLP/ver19_comment.model")
+out = model.most_similar(positive=["ご飯","肉"])
+for x in out:
+	print(x[0])
 # print(return_list())
 # make_comment_list()
-make_doc2vec()
-# similar_word('カレー')
+# make_doc2vec()
+# similar_word()
 # return_similar_word(word_list)
 
 
